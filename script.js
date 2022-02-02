@@ -40,5 +40,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-window.onload = () => { };
-// git push
+window.onload = () => {
+  console.log(fetchProducts);
+ };
