@@ -41,5 +41,5 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 window.onload = () => {
-  console.log(fetchProducts);
+  fetchProducts();
  };
