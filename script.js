@@ -12,7 +12,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -24,6 +24,17 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+async function forEachItems() {
+  const waitProducts = await fetchProducts();
+  const queryItem = document.querySelector('.items');
+  const forEachProduct = waitProducts.results.forEach((result) => {
+    queryItem.appendChild(createProductItemElement(result));
+  });
+  const productObj = forEachProduct;
+  return productObj;
+
+}
+forEachItems();
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
