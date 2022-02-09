@@ -24,6 +24,7 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
+// 1. adicione listagem de produtos
 async function forEachItems() {
   const waitProducts = await fetchProducts();
   const queryItem = document.querySelector('.items');
@@ -43,6 +44,8 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
+// 2. adicione o produto ao carrinho e compras
+
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -51,7 +54,15 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 
+const addItemButt = document.querySelector('.item_add');
+const cartItemsOl = document.querySelector('.cart_items');
+addItemButt.addEventListener('click', async function (event) {
+  const itemSku = document.querySelector('.item_sku').innerHTML;
+  const fetchSku = await fetchItem(itemSku);
+  cartItemsOl.appendChild(createCartItemElement(fetchSku));
+});
+
 window.onload = () => {
   fetchProducts();
   fetchItem();
- };
+};
