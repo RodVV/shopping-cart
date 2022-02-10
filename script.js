@@ -65,6 +65,12 @@ items.addEventListener('click', async function (event) {
   }
 });
 
+// 6. Implemente a lógica no botão Esvaziar carrinho para limpar o carrinho de compras
+const emptyButt = document.querySelector('.empty-cart');
+emptyButt.addEventListener('click', () => {
+  cartItemsOl.innerHTML = '';
+});
+
 window.onload = () => {
   fetchProducts();
   fetchItem();
