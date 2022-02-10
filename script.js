@@ -40,8 +40,9 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// 3. remova o item do carrinho de compras ao clicar nele
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 // 2. adicione o produto ao carrinho e compras
@@ -58,7 +59,7 @@ const items = document.querySelector('.items');
 const cartItemsOl = document.querySelector('.cart__items');
 items.addEventListener('click', async function (event) {
   if (event.target.classList.contains('item__add')) {
-  const itemSku = getSkuFromProductItem(event.target.parentNode);
+  const itemSku = getSkuFromProductItem(event.target.parentNode); 
   const fetchSku = await fetchItem(itemSku);
   cartItemsOl.appendChild(createCartItemElement(fetchSku));
   }
