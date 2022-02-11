@@ -24,15 +24,25 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
+// 7. Adicione um texto de "carregando" durante uma requisição à API
+const loading = document.createElement('span');
+loading.className = 'loading';
+loading.innerText = 'loading';
+const containerTitle = document.querySelector('.container-title');
+containerTitle.appendChild(loading);
+
+function loaded() {
+  loading.remove();
+}
+
 // 1. adicione listagem de produtos
 async function forEachItems() {
   const waitProducts = await fetchProducts();
   const queryItem = document.querySelector('.items');
-  const forEachProduct = waitProducts.results.forEach((result) => {
+  waitProducts.results.forEach((result) => {
     queryItem.appendChild(createProductItemElement(result));
   });
-  const productObj = forEachProduct;
-  return productObj;
+  return loaded();
 }
 forEachItems();
 
@@ -56,19 +66,25 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 }
 
 const items = document.querySelector('.items');
-const cartItemsOl = document.querySelector('.cart__items');
+const cartItems = document.querySelector('.cart__items');
 items.addEventListener('click', async function (event) {
   if (event.target.classList.contains('item__add')) {
   const itemSku = getSkuFromProductItem(event.target.parentNode); 
   const fetchSku = await fetchItem(itemSku);
-  cartItemsOl.appendChild(createCartItemElement(fetchSku));
+  cartItems.appendChild(createCartItemElement(fetchSku));
   }
 });
+
+// 5. Some o valor total dos itens do carrinho de compras
+// const totalDiv = document.querySelector('.total-price');
+// const valorTotal = () => {
+//   const valor = 0;
+// };
 
 // 6. Implemente a lógica no botão Esvaziar carrinho para limpar o carrinho de compras
 const emptyButt = document.querySelector('.empty-cart');
 emptyButt.addEventListener('click', () => {
-  cartItemsOl.innerHTML = '';
+  cartItems.innerHTML = '';
 });
 
 window.onload = () => {
