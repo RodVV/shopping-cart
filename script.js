@@ -54,8 +54,7 @@ function getSkuFromProductItem(item) {
 
 // 3. remova o item do carrinho de compras
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
+function cartItemClickListener(event) { 
   event.target.remove();
 }
 
@@ -76,6 +75,7 @@ async function createElementsCart(event) {
     arrayCartItems.push({ id, title, price });
     cartItems.appendChild(createCartItemElement(fetchSku));
     saveCartItems(JSON.stringify(arrayCartItems));
+    somarCarrinho();
 }
 
 async function prepararItemsCart() {
@@ -101,23 +101,26 @@ async function prepararItemsCart() {
 // );
 
 // 5. Some o valor total dos itens do carrinho de compras
-// const totalDiv = document.querySelector('.total-price');
-// const valorTotal = () => {
-//   const valor = 0;
-// };
+const totalDiv = document.querySelector('.total-price');
+function somarCarrinho() {
+  const somador = arrayCartItems.reduce((acc, curr) => curr.price + acc, 0);
+  totalDiv.innerText = somador;
+  return totalDiv;
+}
 
 // 6. Implemente a lógica no botão Esvaziar carrinho para limpar o carrinho de compras
 const emptyButt = document.querySelector('.empty-cart');
 emptyButt.addEventListener('click', () => {
   cartItems.innerHTML = '';
+  totalDiv.innerText = 0;
 });
 
 // localStorage.removeItem('cartItems');
 function recarregaCart() {
   arrayCartItems = JSON.parse(localStorage.getItem('cartItems'));
   arrayCartItems.forEach((item) => cartItems.appendChild(createCartItemElement(item)));
-
-  // console.log(arrayCartItems);
+  console.log(arrayCartItems);
+  somarCarrinho();
 }
 
 window.onload = () => {
@@ -125,5 +128,5 @@ window.onload = () => {
   if (localStorage.getItem('cartItems') === null) {
     localStorage.setItem('cartItems', JSON.stringify([]));
   }
-  recarregaCart();
+  recarregaCart();  
 };
