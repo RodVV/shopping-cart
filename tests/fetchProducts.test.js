@@ -6,7 +6,7 @@ describe('1 - Teste a função fecthProducts', () => {
   it('É função', () => {
     expect(typeof fetchProducts).toBe('function');
   })
-  it('chamando com o argumento "MLB1615760527"', () => {
+  it('chamando com o argumento "MLB1615760527"', async () => {
     const test = await fetchProducts('computador');
     expect(fetch).toBeCalledWith(expect.anything());
     expect(fetch).toBeCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');
