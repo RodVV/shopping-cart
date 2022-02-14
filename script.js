@@ -75,7 +75,7 @@ async function createElementsCart(event) {
     arrayCartItems.push({ id, title, price });
     cartItems.appendChild(createCartItemElement(fetchSku));
     saveCartItems(JSON.stringify(arrayCartItems));
-    somarCarrinho();
+    // somarCarrinho();
 }
 
 async function prepararItemsCart() {
@@ -101,18 +101,18 @@ async function prepararItemsCart() {
 // );
 
 // 5. Some o valor total dos itens do carrinho de compras
-const totalDiv = document.querySelector('.total-price');
-function somarCarrinho() {
-  const somador = arrayCartItems.reduce((acc, curr) => curr.price + acc, 0);
-  totalDiv.innerText = somador;
-  return totalDiv;
-}
+// const totalDiv = document.querySelector('.total-price');
+// function somarCarrinho() {
+//   const somador = arrayCartItems.reduce((acc, curr) => curr.price + acc, 0);
+//   totalDiv.innerText = somador;
+//   return totalDiv;
+// }
 
 // 6. Implemente a lógica no botão Esvaziar carrinho para limpar o carrinho de compras
 const emptyButt = document.querySelector('.empty-cart');
 emptyButt.addEventListener('click', () => {
   cartItems.innerHTML = '';
-  totalDiv.innerText = 0;
+  // totalDiv.innerText = 0;
 });
 
 // localStorage.removeItem('cartItems');
@@ -120,7 +120,7 @@ function recarregaCart() {
   arrayCartItems = JSON.parse(localStorage.getItem('cartItems'));
   arrayCartItems.forEach((item) => cartItems.appendChild(createCartItemElement(item)));
   console.log(arrayCartItems);
-  somarCarrinho();
+  // somarCarrinho();
 }
 
 window.onload = () => {
